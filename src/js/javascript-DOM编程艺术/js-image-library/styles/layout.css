@@ -32,6 +32,6 @@ img {
 #imagegallery li {
     display: inline;
 }
-/* #imagegallery li a img {
+#imagegallery li a img {
     border: 0;
-} */
+}
