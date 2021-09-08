@@ -46,6 +46,7 @@ function showPic(whichpic) {
     return true;
 }
 
+
 function addLoadEvent(func) {
     var oldonload = window.onload;
     if (typeof window.onload != "function") {
