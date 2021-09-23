@@ -1,0 +1,41 @@
+body {
+    width: 90%;
+    max-width: 900px;
+    margin: 2em auto;
+    font: .9em/1.2 Arial, Helvetica, sans-serif;
+}
+/* ------------------------------------ header ------------------------------------ */
+header {
+    border: 2px solid purple;
+}
+/* ------------------------------------ nav ------------------------------------ */
+nav {
+    border: 2px solid blue;
+}
+
+nav ul {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+nav form {
+    display: flex;
+    flex: 5;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+/* ------------------------------------ main ------------------------------------ */
+main {
+    border: 2px solid red;
+}
+
+main aside {
+    border: 1px solid pink;
+}
+/* ------------------------------------ foot ------------------------------------ */
+footer {
+    border: 2px solid green;
+}
