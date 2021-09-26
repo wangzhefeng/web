@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title>主页</title>
+    <title>表单</title>
     <meta name="author" content="wangzhefeng">
     <meta name="description" content="Description">
     <meta property="og:image" content="https://developer.cdn.mozilla.net/static/img/opengraph-logo.dc4e08e2f6af.png">
@@ -13,18 +13,19 @@
     <link rel="Shortcut Icon" href="images/favicon.ico" type="image/x-icon">
     <!-- css -->
     <link rel="stylesheet" href="styles/style-main.css">
+    <link rel="stylesheet" href="styles/style-form.css">
 </head>
 <body>
     <div class="container">
         <!-- 本站所有网页的统一主标题 -->
         <header>
-            <h1>主页</h1>
+            <h1>表单</h1>
         </header>
 
         <!-- 本站统一的导航栏 -->
         <nav>
             <ul>
-                <li><a href="#">主页</a></li>
+                <li><a href="index.html">主页</a></li>
                 <li><a href="pictures.html">图片</a></li>
                 <li><a href="projects.html">项目</a></li>
                 <li><a href="social.html">社交</a></li>
@@ -33,7 +34,7 @@
                 <li><a href="blog.html">博客</a></li>
                 <li><a href="resume.html">简历</a></li>
                 <li><a href="box.html">盒子</a></li>
-                <li><a href="form.html">表单</a></li>
+                <li><a href="#">表单</a></li>
                 <li><a href="game.html">游戏</a></li>
             </ul>
             
@@ -48,6 +49,23 @@
         <!-- <main> -->
             <article>
                 <!-- 此处包含一个 article（一篇文章），内容略…… -->
+                <form action="/src/html-css" method="post">
+                    <div>
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="user_name" value="your name">
+                    </div>
+                    <div>
+                        <label for="mail">E-mail:</label>
+                        <input type="email" id="mail" name="user_email" value="your email">
+                    </div>
+                    <div>
+                        <label for="msg">Message:</label>
+                        <textarea id="msg" name="user_message">write something</textarea>
+                    </div>
+                    <div class="button">
+                        <button type="submit">Send your message</button>
+                    </div>
+                </form>
             </article>
             
             <!-- 侧边栏在主内容右侧 -->
