@@ -1,0 +1,11 @@
+
+- parseInt(String, num)
+- parseFloat(String)
+- + string
+- NaN
+- isNaN()
+- Infinity
+- -Infinity
+- isFinite()
+   - isFinite("0"); // true
+   - Number.isFinite("0"); // false

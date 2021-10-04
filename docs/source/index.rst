@@ -38,18 +38,7 @@ Welcome to html-css-js's documentation!
    :maxdepth: 2
    :caption: React
 
-   react/react-doc
-   react/react-doc-helloworld
-   react/react-doc-jsx
-   react/react-doc-rendering-elements
-   react/react-doc-components-props
-   react/react-doc-state-lifecycle
-   react/react-doc-event
-   react/react-doc-tutorial
-   react/babel
-   react/typescript
    react/react
-   react/react-native
 
 
 .. toctree::
