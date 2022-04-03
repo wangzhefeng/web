@@ -7,15 +7,17 @@ categories: [js]
 tags: [js]
 ---
 
-# 一、语言基础
+[TOC]
+
+# 三、语言基础
 
 ## 8.Object
 
 - 1.ECMAScript 中的对象其实就是一组数据和功能的组合
-- 2.严格来讲，ECMA-262 中对象的行为不一定适合 JavaScript 中的其他对象。
+- 2.严格来讲，ECMA-262 中对象的行为不一定适合 JavaScript 中的其他对象
 	- 2.1 比如浏览器环境中的 BOM 和 DOM 对象，都是由宿主环境定义和提供的宿主对象
 	- 2.2 而宿主对象不受 ECMA-262 约束，所以它们可能会也可能不会继承 Object
-- 3.对象通过 new 操作符后跟对象类型的名称来创建，可以通过创建 Object 类型的实例来创建自己的对象，然后再给对象添加属性和方法
+- 3.对象通过 `new` 操作符后跟 `对象类型的名称` 来创建，可以通过创建 Object 类型的实例来创建自己的对象，然后再给对象添加属性和方法
 - 4.Object 的实例本身并不是很有用，但理解与它相关的概念非常重要。类似 Java 中的 java.lang.Object，ECMAScript 中的 Object 也是派生其他对象的基类。Object 类型的所有属性和方法在派生的对象上同样存在。每个Object 实例都有如下属性和方法：
 	- `constructor`
 		- 用于创建当前对象的函数
@@ -34,16 +36,16 @@ tags: [js]
 
 ```js
 let o1 = new Object();
-let o2 = new Object; // ECMAScript 只要求在给构造函数提供参数时使用括号，合法，但不推荐
+let o2 = new Object;   // ECMAScript 只要求在给构造函数提供参数时使用括号，合法，但不推荐
 
 o2.name = "wangzf";
-console.log(o2.constructor);
-console.log(o2.hasOwnProperty("name"));
-console.log(o2.isPrototypeOf(o1));
-console.log(o2.propertyIsEnumerable("name"));
-console.log(o2.toLocaleString());
-console.log(o2.toString());
-console.log(o2.valueOf("name"));
+console.log(o2.constructor); // function Object()
+console.log(o2.hasOwnProperty("name")); // true
+console.log(o2.isPrototypeOf(o1)); // false
+console.log(o2.propertyIsEnumerable("name")); // true
+console.log(o2.toLocaleString());// [object Object]
+console.log(o2.toString()); // [object Object]
+console.log(o2.valueOf()); // Object { name: "wangzf" }
 ```
 
 # 六、集合引用类型
@@ -54,14 +56,14 @@ console.log(o2.valueOf("name"));
 
 ### 1.1 创建 Object 实例
 
-- （1）使用 new 操作符和 Object 构造函数
+- （1）使用 `new` 操作符和 `Object` 构造函数
 
 	```js
 	le person = new Object();
 	person.name = "Nicholas";
 	person.age = 29;
 	
-	console.log(person);
+	console.log(person); // { name: "Nicholas", age: 29 }
 	```
 
 - （2）使用对象字面量(object literal)，对象字面量是对象定义的简写形式，目的是为了简化包含大量属性的对象的创建
@@ -88,15 +90,12 @@ console.log(o2.valueOf("name"));
 	// 对象字面量已经成为传递大量可选参数的主要方式
 	function displayInfo(args) {
 	    let output = "";
-	
 	    if (typeof args.name == "string") {
 	        output += "Name: " + args.name + "\n";
 	    }
-	    
 	    if (typeof args.age == "number") {
 	        output += "Age: " + args.age + "\n";
 	    }
-	    
 	    alert(output);
 	}
 	
@@ -170,7 +169,7 @@ let person = {
 
 ### 1.1 属性的类型
 
-- ECMA-262 使用一些**内部特性**来描述属性的特征。这些特性是由为 JavaScript 实现引擎的规范定义的，因此，开发者不能在 JavaScript 中直接访问这些特性，为了将某个特性表示为内部特性，规范会用两个中括号把特性的名称括起来
+- ECMA-262 使用一些**内部特性**来描述**属性的特征**。这些特性是由为 JavaScript 实现引擎的规范定义的，因此，开发者不能在 JavaScript 中直接访问这些特性，为了将某个特性表示为内部特性，规范会用两个中括号把特性的名称括起来
 
 - **1.数据属性**
 
@@ -210,13 +209,17 @@ let person = {
   	person.name = "Greg";
   	console.log(person.name); // "Nicholas"
   	```
+  	
+  - 虽然可以对同一个属性多次调用 Object.defineProperty() ，但在把 configurable 设置为 false 之后就会受限制了
+
+  - 在调用 `Object.defineProperty()`时，configurable、enumerable和writable 的值如果不指定，则都默认为 false。多数情况下，可能都不需要 Object.defineProperty() 提供的这些强大的设置，但要理解 JavaScript 对象，就要理解这些概念
 
 - **2.访问器属性**
 	
-	- 访问器属性不包含数据值。相反，它们包含一个获取(getter)函数和一个设置(setter)函数，不过这两个函数不是必需的
+	- 访问器属性不包含数据值。相反，它们包含一个**获取(getter)函数**和一个**设置(setter)函数**，不过这两个函数不是必需的
 	
-	  - 在读取访问器属性时，会调用 getter 函数，这个函数的责任就是返回一个有效的值
-	  - 在写入访问器属性时，会调用 setter 函数并传入新值，这个函数必需决定对数据做出什么修改
+	  - 在读取访问器属性时，会调用 `getter` 函数，这个函数的责任就是返回一个有效的值
+	  - 在写入访问器属性时，会调用 `setter` 函数并传入新值，这个函数必需决定对数据做出什么修改
 	
 	- 访问器属性有 4 个特性描述它们的行为：
 	
@@ -231,36 +234,37 @@ let person = {
 	
 	- 访问器属性时不能直接定义的，必需使用 `Object.defineProperty()`
 	
-		```js
-		let book = {
-		    year_: 2017, // 不希望在对象方法的外部被访问
-		    edition: 1,
-		};
-		
-		Object.defineProperty(
-			book,
-		    "year",
-		    {
-		        get() {
-		            return this.year_;
-		        },
-		        set(newValue) {
-		            if (newValue > 2017) {
-		                this.year_ = newValue;
-		                this.edition += newValue - 2017;
-		            }
-		        }
-		    }
-		);
-		book.year = 2018;
-		console.log(book.edition); // 2
-		```
+	  ```js
+	  // 定义一个对象，包含私有成员 year_ 和公共成员 edition
+	  let book = {
+	      year_: 2017, // 数据属性，不希望在对象方法的外部被访问
+	      edition: 1,  // 数据属性
+	  };
+	  
+	  Object.defineProperty(
+	  	book,		 // 对象
+	      "year",      // 访问器属性
+	      {
+	          get() {	 // 
+	              return this.year_;
+	          },
+	          set(newValue) {
+	              if (newValue > 2017) {
+	                  this.year_ = newValue;
+	                  this.edition += newValue - 2017;
+	              }
+	          }
+	      }
+	  );
+	  book.year = 2018;
+	  console.log(book.edition); // 2
+	  ```
 	
-	- 获取函数和设置函数不一定都要定义，只定义获取函数意味着属性时只读的，尝试修改属性会被忽略。在严格模式下，尝试写入只定义了获取函数的属性会抛出错误。
+	- 获取函数和设置函数不一定都要定义，只定义获取函数意味着属性是只读的，尝试修改属性会被忽略。在严格模式下，尝试写入只定义了获取函数的属性会抛出错误。类似地，只有一个设置函数的属性是不能读取的，非严格模式下读取会返回 undefined，严格模式下回抛出错误
 	
-	- 类似地，只有一个设置函数的属性是不能读取的，非严格模式下读取会返回 undefined，严格模式下回抛出错误
+	- 在不支持 `Object.definedProperty()` 的浏览器中没有办法修改 `[[Configurable]]` 和 `[[Enumerable]]`
 
-### 1.2 定义多个属性
+### 1.2 定义多个属性-Object.defineProperties()
 
 - ECMAScript 提供了 `Object.defineProperties()` 方法，这个方法可以通过多个描述符一次性定义多个属性。它接收两个参数：
 
@@ -268,6 +272,8 @@ let person = {
 	- 另一个描述符对象，其属性与要添加或修改的属性一一对应
 
 	```js
+	// 定义一个对象，在对象上同时定义连个数据数据 year_ 和 edition，还有一个访问器属性 year
+	// 并且，数据属性的 configurable、enumerable、writable特性的值都是 false
 	let book = {};
 	
 	Object.defineProperties(
@@ -296,62 +302,68 @@ let person = {
 	);
 	```
 
-### 1.3 读取属性的特性
+### 1.3 读取属性的特性--Object.getOwnPropertyDescriptor(s)
 
 - 使用 `Object.getOwnPropertyDescriptor()` 方法可以取得指定属性的属性描述符
 
-	- 方法接收两个参数：属性所在的对象和要取得其描述符的属性名
-	- 方法返回值是一个对象
-		- 对于访问器属性包含 configurable、enumerable、get、set 属性
-		- 对于数据属性包含 configurable、enumerable、writable、value属性
+  - 方法接收两个参数：
+  	- 属性所在的对象
+  	- 要取得其描述符的属性名
+  - 方法返回值是一个对象
+    - 对于数据属性包含 configurable、enumerable、writable、value属性
+    - 对于访问器属性包含 configurable、enumerable、get、set 属性
+
+  ```js
+  // 定义对象
+  let book = {};
+  
+  // 为对象 book 定义多个属性
+  Object.defineProperties(book, {
+      year_: {   // 数据属性
+          value: 2017
+      },
+      edition: { // 数据属性
+          value: 1
+      },
+      year: {    // 访问器属性
+          get: function() {
+              return this.year_;
+          },
+          set: function(newValue) {
+              if (newValue > 2017) {
+                  this.year_ = newValue;
+                  this.edition += newValue - 2017;
+              }
+          }
+      }
+  });
+  
+  let descriptor = Object.getOwnPropertyDescriptor(book, "year_");
+  console.log(descriptor.value); // 2017
+  console.log(descriptor.configurable); // false
+  console.log(typeof descriptor.get); // "undefined"
+  
+  let descriptor = Object.getOwnPropertyDescriptor(book, "year");
+  console.log(descriptor.value); // undefined
+  console.log(descriptor.enumerable); //false
+  console.log(typeof descriptor.get); // "function"
+  ```
+
+- ECMAScript 2017 新增了 `Object.getOwnPropertyDescriptors()` 静态方法，这个方法实际上会在每个自由属性上调用 `Object.getOwnPropertyDescriptor()` 并在一个新对象中返回它们
 
 	```js
+	// 定义对象
 	let book = {};
 	
+	// 为对象 book 定义多个属性
 	Object.defineProperties(book, {
-	    year_: {
-	        value: 2017
+	    year_: {   // 数据属性
+	        value: 2017 
 	    },
-	    edition: {
+	    edition: { // 数据属性
 	        value: 1
 	    },
-	    year: {
-	        get: function() {
-	            return this.year_;
-	        },
-	        set: function(newValue) {
-	            if (newValue > 2017) {
-	                this.year_ = newValue;
-	                this.edition += newValue - 2017;
-	            }
-	        }
-	    }
-	});
-	
-	let descriptor = Object.getOwnPropertyDescriptor(book, "year_");
-	console.log(descriptor.value); // 2017
-	console.log(descriptor.configurable); // false
-	console.log(typeof descriptor.get); // "undefined"
-	
-	let descriptor = Object.getOwnPropertyDescriptor(book, "year");
-	console.log(descriptor.value); // undefined
-	console.log(descriptor.enumerable); //false
-	console.log(typeof descriptor.get); // "function"
-	```
-
-- ECMAScript 2017 新增了 `Object.getOwnPropertyDescriptors()` 静态方法，这个方法实际上会在每个自由属性上调用 Object.getOwnPropertyDescriptor() 并在一个新对象中返回它们
-
-	```js
-	let book = {};
-	
-	Object.defineProperties(book, {
-	    year_: {
-	        value: 2017
-	    },
-	    edition: {
-	        value: 1
-	    },
-	    year: {
+	    year: {    // 访问器属性
 	        get: function() {
 	            return this.year_;
 	        },
@@ -387,12 +399,16 @@ let person = {
 	// }
 	```
 
-### 1.4 合并对象
+### 1.4 合并对象--Object.assign()
 
-- 合并(merge)，把源对象所有的本地属性一起复制到目标对象上，也称为混入(mixin)
+- 合并(merge)，把源对象所有的本地属性一起复制到目标对象上，也称为混入(mixin)，因为目标对象通过混入源对象的属性得到了增强
 - ECMAScript 6 专门为合并提供了 `Object.assign()` 方法
-	- 这个方法接收两个参数，目标对象和多个源对象
-	- 将每个源对象中可枚举(`Object.propertyIsEnumerable()` 返回 `true`)和自有(`Object.hasOwnProperty()` 返回 `true`)属性复制到目标对象，以字符串和符号为键的属性会被复制。对每个符合条件的属性，`Object.assign` 会使用源对象上的 `[[Get]]` 取得属性的值，然后使用目标对象上的 `[[Set]]` 设置属性的值
+	- 这个方法接收两个参数
+		- 目标对象
+		- 多个源对象
+	- 将每个**源对象**中可枚举和自有属性复制到**目标对象**，以字符串和符号为键的属性会被复制。对每个符合条件的属性，`Object.assign` 会使用**源对象**上的 `[[Get]]` 取得属性的值，然后使用**目标对象**上的 `[[Set]]` 设置属性的值
+		- 可枚举(`Object.propertyIsEnumerable()` 返回 `true`)
+		- 自有(`Object.hasOwnProperty()` 返回 `true`)
 
 ```js
 let dest, src, result;
@@ -435,14 +451,89 @@ src = {
     }
 };
 Object.assign(dest, src);
+// 调用 src 的获取 get 方法
+// 调用 dest 的设置 set 方法并传入参数 "foo"
+// 因为这里的设置函数不执行赋值操作,所以实际上并没有把值转移过来
 console.log(dest); 	       // { set a(val) {...} }
-// 调用 src 的获取方法
-// 调用 dest 的设置方法并传入参数 "foo"
-// 因为这里的设置函数不执行赋值操作
-// 所以实际上并没有把值转移过来
 ```
 
-### 1.5 对象标识及相等判定[`Object.is()`]
+- `Object.assign()` 实际上对每个源对象执行的是浅复制
+	- 如果多个源对象都有相同的属性，则使用最后一个复制的值
+	- 从源对象访问器属性取得的值，比如获取函数，会作为一个静态值赋给目标对象。换句话说，不能在两个对象间转移获取函数和设置函数
+
+```js
+let dest, src, result;
+
+/********************************
+ * 覆盖属性
+ ********************************/
+dest = { id: "dest" };
+result = Object.assign(
+    dest, 
+    { 
+        id: "src1", 
+        a: "foo" 
+    }, 
+    { 
+        id: "src2",
+        b: "bar"
+    }
+);
+// Object.assign 会覆盖重复的属性
+console.log(result); // { id: src2, a: foo, b: bar }
+
+// 可以通过目标对象上的设置函数观察到覆盖的过程
+dest = {
+    set id(x) {
+        console.log(x);
+    }
+};
+Object.assign(
+    dest,
+    {
+        id: "first"
+    },
+    {
+        id: "second"
+    },
+    {
+        id: "third"
+    }
+);
+// first
+// second
+// third
+
+/********************************
+ * 对象引用
+ ********************************/
+dest = {};
+src = { a: {} };
+Object.assign(dest, src);
+
+// 浅复制意味着只会复制对象的引用
+console.log(dest);              // { a: {} }
+console.log(dest.a === src.a);  // true
+```
+
+- 如果赋值期间出错，则操作会中止并退出，同时抛出错误。Object.assign() 没有"回滚"之前赋值的概念，因此它是一个尽力而为、可能只会完成部分复制的方法
+
+```js
+let dect, src, result;
+
+/********************************
+ * 错误处理
+ ********************************/
+dest = {};
+src = {
+    a: "foo",
+    
+}
+```
+
+
+
+### 1.5 对象标识及相等判定--Object.is()
 
 - 在 ECMAScript 6 之前，对于有些对象相等的判定的特殊情况即使是 `===` 操作符也无能为力
 

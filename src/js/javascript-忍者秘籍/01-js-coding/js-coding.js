@@ -8,9 +8,9 @@
  */
 
 /**
- * 2.测试
+ * 2.测试, 参考附录 B
  */
-// const a = 2;
+const a = 2;
 // assert (a === 1, "Disaster! a is not 1!")
 
 /**
